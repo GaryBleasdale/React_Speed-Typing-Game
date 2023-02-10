@@ -1,10 +1,13 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 
 function App() {
   // State Management
   const [words, setWords] = useState("")
   const [wordCount,setWordCount] = useState(0)
   const [remaining, setRemaining] = useState(5)
+  const [timerRunning, setTimerRunning] = useState(false)
+ // Ref creation (for dom manipulation)
+  const textAreaRef = useRef(null);
 
   
   let wordCounter =(str)=>{
@@ -26,10 +29,14 @@ function App() {
 
 
   const handleClick = () => {
+    setTimerRunning(true)
+    setWords("")
+    textAreaRef.current.value=""
     let repeater = setInterval(() => {
       setRemaining(prevCount => prevCount - 1);
+      
     }, 1000);
-    setTimeout(function( ) { clearInterval( repeater );
+    setTimeout(function( ) { clearInterval( repeater );setTimerRunning(false);setRemaining(5);
     }, 5000);
 
   }
@@ -40,9 +47,9 @@ function App() {
     <div className="h-screen w-screen flex items-center justify-center bg-black text-green-600 font-display text-5xl">
       <div className="w-10/12 h-4/5 flex flex-col items-center justify-center">
         <h1>Speed Word Game</h1>
-        <textarea onChange={wordsSetter} autofocus/>
+        <textarea onChange={wordsSetter} autoFocus disabled={!timerRunning} ref={textAreaRef}/>
         <h4>Time remaining:{remaining}</h4>
-        <button onClick={handleClick}>Start Game</button>
+        <button onClick={handleClick} className='bg-green-600 text-white p-5 rounded-md '>Start Game</button>
         <h1>Word Count: {wordCount}</h1>
       </div>
     </div>
