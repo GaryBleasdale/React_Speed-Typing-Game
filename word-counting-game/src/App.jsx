@@ -27,16 +27,26 @@ function App() {
     setWordCount(wordSplit.length ===0 ? 0 : wordSplit.length-1)
   },[words])
 
+  let buttonStyle={
+
+  }
 
   const handleClick = () => {
     setTimerRunning(true)
     setWords("")
+    buttonStyle={
+      backgroundColor:"grey",
+      color:"darkgrey"
+    }
     textAreaRef.current.value=""
     let repeater = setInterval(() => {
       setRemaining(prevCount => prevCount - 1);
       
     }, 1000);
-    setTimeout(function( ) { clearInterval( repeater );setTimerRunning(false);setRemaining(5);
+    setTimeout(function( ) { clearInterval( repeater );setTimerRunning(false);setRemaining(5);buttonStyle={
+      backgroundColor:"grey",
+      color:"darkgrey"
+    };
     }, 5000);
 
   }
@@ -44,13 +54,13 @@ function App() {
 
 
   return (
-    <div className="h-screen w-screen flex items-center justify-center bg-black text-green-600 font-display text-5xl">
+    <div className="h-screen w-screen flex items-center justify-center bg-black text-green-600 font-display text-5xl text-center	">
       <div className="w-10/12 h-4/5 flex flex-col items-center justify-center">
-        <h1>Speed Word Game</h1>
-        <textarea onChange={wordsSetter} autoFocus disabled={!timerRunning} ref={textAreaRef}/>
-        <h4>Time remaining:{remaining}</h4>
-        <button onClick={handleClick} className='bg-green-600 text-white p-5 rounded-md '>Start Game</button>
-        <h1>Word Count: {wordCount}</h1>
+        <h1 className='py-10'>Speed Word Game</h1>
+        <textarea className='py-10 h-24' onChange={wordsSetter} autoFocus disabled={!timerRunning} ref={textAreaRef}/>
+        <h4 className='py-5'>Time remaining:{remaining}</h4>
+        <button onClick={handleClick} disabled={timerRunning}className={timerRunning ? 'bg-gray-600 text-gray-900 p-5 rounded-md' : 'bg-green-600 text-white p-5 rounded-md hover:bg-white hover:text-green-600 duration-200'}>Start Game</button>
+        <h1 className="text-4xl py-5">Word Count: {wordCount}</h1>
       </div>
     </div>
 
