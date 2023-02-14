@@ -6,9 +6,9 @@ module.exports = {
   ],
   theme: {
     fontFamily:{
-      display: ['Share Tech Mono', 'monospace']
+      display: ['Share Tech Mono', 'sans-serif']
     },
-    extend: {},
+    extend: {    },
   },
   plugins: [],
 }
